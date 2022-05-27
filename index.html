@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BU COURSE SCHEDULER</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <ul class="course_inputs">
+        <h1>Input The Courses: </h1>
+        <li class="course_inputs--fill">
+            <label for="college">College:</label><br>
+            <select id="college" name="college">
+            <option selected>select...</option>
+                <option>BUA</option>
+                <option>CAS</option>
+                <option>CDS</option>
+                <option>CFA</option>
+                <option>CGS</option>
+                <option>COM</option>
+                <option>ENG</option>
+                <option>EOP</option>
+                <option>FRA</option>
+                <option>GMS</option>
+                <option>GRS</option>
+                <option>HUB</option>
+                <option>KHC</option>
+                <option>LAW</option>
+                <option>MED</option>
+                <option>MET</option>
+                <option>OTP</option>
+                <option>PDP</option>
+                <option>QST</option>
+                <option>SAR</option>
+                <option>SDM</option>
+                <option>SED</option>
+                <option>SHA</option>
+                <option>SPH</option>
+                <option>SSW</option>
+                <option>STH</option>
+                <option>XAS</option>
+                <option>XRG</option>
+            </select><br>
+         </li>
+        <li class="course_inputs--fill">
+            <label for="dept">Dept:</label><br>
+            <input type="text" id="dept" name="dept"><br>
+        </li>
+        <li class="course_inputs--fill">
+            <label for="course">Course:</label><br>
+            <input type="text" id="course" name="course"><br>
+        </li>
+        <li class="course_inputs--fill">
+            <button id="subbutton">Submit</button>
+        </li>
+    </ul>
+    <div class="class_disp">
+        <span class="select_course" name="spanclasses">COURSE</span>
+        <span class="select_course" name="spanclasses">COURSE</span>
+        <span class="select_course" name="spanclasses">COURSE</span>
+        <span class="select_course" name="spanclasses">COURSE</span>
+        <span class="select_course" name="spanclasses">COURSE</span>
+    </div>
+    <div class="course_sub">
+        <button id="subbutton--course">Submit Courses</button>
+    </div>
+    <div class="testing_js">
+        <span id="test--js">content</span>
+        <button id="test--but">testbutton</button>
+    </div>
+    
+    <script src="./app.js"></script>
+</body>
+</html>
