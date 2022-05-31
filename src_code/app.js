@@ -30,13 +30,13 @@ function loadClass(){
     for(let i = 0;i<5;i++)//set to 5 as that is what we are allowing now
     {
         //Put in check to see if course entered is not empty and actually a course
-        selected_courses.push(spanclasses_read[i].innerHTML.replace(/\s/g,""));  
+        //selected_courses.push(spanclasses_read[i].innerHTML.replace(/\s/g,""));  
     }
-    //selected_courses = ["ENGEC327","CASMA225","ENGEC311","ENGEC411","CASPS251"];
+    selected_courses = ["ENGEC327","CASMA225","ENGEC311","ENGEC411","CASPS251"];
     //t-document.getElementById("test--js").innerHTML = (dataMap.get("CASPY212"))[0].days[0];
     gatherData();
     compared_arr_of_valid_combo = arr_of_valid_combo.sort((a,b)=>b[b.length-1]-a[a.length-1]);
-    displayController()
+    nextTable()
     //document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo[0][compared_arr_of_valid_combo[0].length - 1];
     //displayData();
 }
@@ -126,30 +126,36 @@ function calcAvgRating(){
 
 
 //Display the grid of valid combos in website
-document.getElementById("next_table").addEventListener("click",displayController);
+document.getElementById("next_table").addEventListener("click",nextTable);
+document.getElementById("prev_table").addEventListener("click",prevTable);
 var tableid = "datatable"
-var iteration_num_in_valid_combo = 0;
+var iteration_num_in_valid_combo = -1;
+function nextTable(){
+    if(iteration_num_in_valid_combo < compared_arr_of_valid_combo.length - 1){
+        iteration_num_in_valid_combo++;
+        displayController();
+    }
+}
+function prevTable(){
+    document.getElementById("test--js").innerHTML = "click";
+    if(iteration_num_in_valid_combo > 0){
+        iteration_num_in_valid_combo--;
+        displayController();
+    }
+}
 function displayController(){
     //document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo.length;
-    if(iteration_num_in_valid_combo == compared_arr_of_valid_combo.length - 1){
-        document.getElementById("next_table").removeEventListener("click",displayController);
-        document.getElementById("test--js").innerHTML = "DONE";
-
+    var table = document.getElementById(tableid);
+    var  rowCount = table.rows.length;
+    for (var i = 1; i < rowCount; i++) {
+        table.deleteRow(1);
     }
-    else{
-        var table = document.getElementById(tableid);
-        var  rowCount = table.rows.length;
-        for (var i = 1; i < rowCount; i++) {
-            table.deleteRow(1);
-        }
-        var n = compared_arr_of_valid_combo[iteration_num_in_valid_combo][compared_arr_of_valid_combo[iteration_num_in_valid_combo].length - 1];
-        var rounded = Math.round((n + Number.EPSILON) * 100) / 100;
-        document.getElementById("avg_rating").innerHTML = rounded;
-        for(let i = 0;i<compared_arr_of_valid_combo[0].length - 1;i++){
-            createRows(i)
-        }
-        iteration_num_in_valid_combo++;
-}
+    var n = compared_arr_of_valid_combo[iteration_num_in_valid_combo][compared_arr_of_valid_combo[iteration_num_in_valid_combo].length - 1];
+    var rounded = Math.round((n + Number.EPSILON) * 100) / 100;
+    document.getElementById("avg_rating").innerHTML = rounded;
+    for(let i = 0;i<compared_arr_of_valid_combo[0].length - 1;i++){
+        createRows(i)
+    }
 }
 function createRows(row_num){
     document.getElementById("test--js").innerHTML = iteration_num_in_valid_combo;
@@ -169,8 +175,6 @@ function createRows(row_num){
     course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].endtime;
     var course_cell = row.insertCell(5);
     course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].days.join();
-
-
 }
 
 
