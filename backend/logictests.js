@@ -1,17 +1,34 @@
 var arr_of_arr = [["T","G","H"],
                 ["W","E","R","S","M"],
                 ["Q","L"]];
+
+var letterget = ["A","C"];
+
+
+var arr1 = [1,2,3];
+var arr2 = [4,5,6];
+var arr3 = [];
+arr3.push(arr1);
+arr3.push(arr2);
+//console.log(arr3);
+
+var values = [];
+var check = [];
 var myMap = new Map();
-var letter = ["A","B","C"];
 myMap.set("A",["1","2","3","4","5"]);
 myMap.set("B",["1","2","3"]);
 myMap.set("C",["1","2","3","4"]);
-var letterget = ["A","C"];
-var values = [];
+var letter = ["A","B","C"];
 printAll_MAP(myMap,0,...values);
 function printAll_MAP(map_func, size_){
     if(size_>=map_func.size){
-        console.log(values);
+        //console.log(values);
+        let pushed_arr = [];
+        let size_combo_temp = values.length;
+        for(let i = 0;i<size_combo_temp;i++){
+            pushed_arr[i] = values[i];
+        }
+        check.push(pushed_arr);
         //check(stringsofar);
         return;
     }
@@ -21,6 +38,13 @@ function printAll_MAP(map_func, size_){
         values.pop();
     }
 }
+for(let i = 0; i<check.length;i++){
+    for(let j = 0;j<check[i].length;j++){
+        console.log(check[i][j]);
+    }
+    console.log("________________");
+}
+//console.log(check);
 
 var testarr = [1,2,3];
 //funcarr(8,...testarr);
