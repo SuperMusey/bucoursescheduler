@@ -30,9 +30,9 @@ function loadClass(){
     for(let i = 0;i<5;i++)//set to 5 as that is what we are allowing now
     {
         //Put in check to see if course entered is not empty and actually a course
-        //selected_courses.push(spanclasses_read[i].innerHTML.replace(/\s/g,""));  
+        selected_courses.push(spanclasses_read[i].innerHTML.replace(/\s/g,""));  
     }
-    selected_courses = ["ENGEC327","CASMA225","ENGEC311","ENGEC411","CASPS251"];
+    //selected_courses = ["ENGEC327","CASMA225","ENGEC311","ENGEC411","CASPS251"];
     //t-document.getElementById("test--js").innerHTML = (dataMap.get("CASPY212"))[0].days[0];
     gatherData();
     compared_arr_of_valid_combo = arr_of_valid_combo.sort((a,b)=>b[b.length-1]-a[a.length-1]);
