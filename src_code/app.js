@@ -137,7 +137,7 @@ function nextTable(){
     }
 }
 function prevTable(){
-    document.getElementById("test--js").innerHTML = "click";
+    //document.getElementById("test--js").innerHTML = "click";
     if(iteration_num_in_valid_combo > 0){
         iteration_num_in_valid_combo--;
         displayController();
@@ -158,7 +158,7 @@ function displayController(){
     }
 }
 function createRows(row_num){
-    document.getElementById("test--js").innerHTML = iteration_num_in_valid_combo;
+    //document.getElementById("test--js").innerHTML = iteration_num_in_valid_combo;
     var table = document.getElementById(tableid);
     var  rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
