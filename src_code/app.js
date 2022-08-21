@@ -81,32 +81,37 @@ function getCombination(map_,size_){
     }
 }
 
-//Check if a combination is valid
+//Check if a combination is valid, where each combo is 5 classes for now
 //consider start and end time and days
 //May need to be async
 //temp_storage is an array of objects as stated in bigdata.js of size of the number of courses selected
 function checkCombo(){
-    //document.getElementById("test--js").innerHTML = temp_storage[0][0].prof;
+    //document.getElementById("test--js").innerHTML = forCombo[1].prof;
     let size_combo = forCombo.length;
     for(let i = 0;i<size_combo;i++){
         let active_class = forCombo[i];
-        for(let j = i+1;j<size_combo;j++){
-            let check_class = forCombo[j];
-            //Check if they have common days
-            const contains = active_class.days.some(element=>{
-                return check_class.days.includes(element);
-            })
-            if(contains == true){
-                let active_class_start_time = active_class.starttime;
-                let active_class_end_time = active_class.endtime;
-                let check_class_start_time = check_class.starttime;
-                let check_class_end_time = check_class.endtime;
-                if(active_class_start_time>=check_class_start_time && active_class_start_time<=check_class_end_time){
-                    return false;
-                }
-                if(active_class_end_time>=check_class_start_time && active_class_end_time<=check_class_end_time){
-                    return false;
-                }
+        let active_class_multipleInstances = active_class.days.length
+        for(let p = 0;p<active_class_multipleInstances;p++){
+            for(let j = i+1;j<size_combo;j++){
+                let check_class = forCombo[j];
+                let check_class_multipleInstances = check_class.days.length; //check for multiple instances of same course
+                for(let q = 0;q<check_class_multipleInstances;q++){
+                    const contains = active_class.days[p].some(element=>{
+                        return check_class.days[q].includes(element);
+                        })//Check if they have common days
+                        if(contains == true){
+                            let active_class_start_time = active_class.starttime[p];
+                            let active_class_end_time = active_class.endtime[p];
+                            let check_class_start_time = check_class.starttime[q];
+                            let check_class_end_time = check_class.endtime[q];
+                            if(active_class_start_time>=check_class_start_time && active_class_start_time<=check_class_end_time){
+                                return false;
+                            }
+                            if(active_class_end_time>=check_class_start_time && active_class_end_time<=check_class_end_time){
+                                return false;
+                            }
+                        }                  
+                }  
             }
         }
     }
@@ -144,7 +149,7 @@ function prevTable(){
     }
 }
 function displayController(){
-    //document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo.length;
+    document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo.length;
     var table = document.getElementById(tableid);
     var  rowCount = table.rows.length;
     for (var i = 1; i < rowCount; i++) {
@@ -163,6 +168,10 @@ function createRows(row_num){
     var  rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
 
+    extra_starttime = "";
+    extra_endtime = "";
+    extra_days = "";
+
     var course_cell = row.insertCell(0);
     course_cell.innerHTML = selected_courses[row_num];
     var course_cell = row.insertCell(1);
@@ -170,11 +179,14 @@ function createRows(row_num){
     var course_cell = row.insertCell(2);
     course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].rating;
     var course_cell = row.insertCell(3);
-    course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].starttime;
+    if(compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].starttime.length>1){extra_starttime = "\r\n"+ compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].starttime[1]};
+    course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].starttime[0]+extra_starttime;
     var course_cell = row.insertCell(4);
-    course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].endtime;
+    if(compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].endtime.length>1){extra_endtime = "\r\n"+ compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].endtime[1]};
+    course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].endtime[0]+extra_endtime;
     var course_cell = row.insertCell(5);
-    course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].days.join();
+    if(compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].days.length>1){extra_days = "\r\n"+ compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].days[1].join()};
+    course_cell.innerHTML = compared_arr_of_valid_combo[iteration_num_in_valid_combo][row_num].days[0].join()+extra_days;
 }
 
 
