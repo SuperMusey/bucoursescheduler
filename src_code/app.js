@@ -27,10 +27,24 @@ function loadClass(){
     document.getElementById("subbutton--course").removeEventListener("click",loadClass);
     document.getElementById("subbutton--course").innerHTML = "SUBMITTED";
     var spanclasses_read = document.getElementsByName("spanclasses");
-    for(let i = 0;i<5;i++)//set to 5 as that is what we are allowing now
-    {
-        //Put in check to see if course entered is not empty and actually a course
-        selected_courses.push(spanclasses_read[i].innerHTML.replace(/\s/g,""));  
+    if(spanclasses_read[0].innerHTML=="COURSE#1"){
+        // selected_courses[0] = "CASAS311";
+        // selected_courses[1] = "CASBI531";
+        // selected_courses[2] = "CASBI552";
+        // selected_courses[3] = "QSTAC222";
+        // selected_courses[4] = "QSTMO221";
+        //problem caused by--
+        selected_courses[0] = "CFATH497";
+        selected_courses[1] = "CFATH599";
+        selected_courses[2] = "CASBI211";
+        selected_courses[3] = "KHCHC501";
+        selected_courses[4] = "KHCST111";
+    }else{    
+        for(let i = 0;i<5;i++)//set to 5 as that is what we are allowing now
+        {
+            //Put in check to see if course entered is not empty and actually a course
+            selected_courses.push(spanclasses_read[i].innerHTML.replace(/\s/g,""));  
+        }
     }
     //selected_courses = ["ENGEC327","CASMA225","ENGEC311","ENGEC411","CASPS251"];
     //t-document.getElementById("test--js").innerHTML = (dataMap.get("CASPY212"))[0].days[0];
@@ -46,14 +60,20 @@ function loadClass(){
 var courseMap = new Map()
 var the_combo = [];
 function gatherData(){
+    let hasClass = true;
     //t-document.getElementById("test--js").innerHTML = selected_courses[1];works
     for(let i=0;i<selected_courses.length;i++){
-        courseMap.set(selected_courses[i],dataMap.get(selected_courses[i]));
+        if(!dataMap.has(selected_courses[i])){
+            document.getElementById("test--js").innerHTML = "A certain course does not exist in our data!";
+            hasClass = false;
+        }
+        else
+            courseMap.set(selected_courses[i],dataMap.get(selected_courses[i]));
     }
     //document.getElementById("test--js").innerHTML = courseMap.get(selected_courses[0])[0].prof;
     //t-we get the proper courseMap
-    getCombination(courseMap,0,...the_combo)
-    
+    if(hasClass)
+        getCombination(courseMap,0,...the_combo)  
 }
 
 //Get all viable combinations
@@ -86,7 +106,7 @@ function getCombination(map_,size_){
 //May need to be async
 //temp_storage is an array of objects as stated in bigdata.js of size of the number of courses selected
 function checkCombo(){
-    //document.getElementById("test--js").innerHTML = forCombo[1].prof;
+    
     let size_combo = forCombo.length;
     for(let i = 0;i<size_combo;i++){
         let active_class = forCombo[i];
@@ -96,10 +116,18 @@ function checkCombo(){
                 let check_class = forCombo[j];
                 let check_class_multipleInstances = check_class.days.length; //check for multiple instances of same course
                 for(let q = 0;q<check_class_multipleInstances;q++){
-                    const contains = active_class.days[p].some(element=>{
-                        return check_class.days[q].includes(element);
+                    let arranged_exist = false;
+                    let contains = false;
+                    if(active_class.days[p] == "Arranged"||check_class.days[q] == "Arranged"){
+                         arranged_exist = true;
+                         //document.getElementById("test--js").innerHTML = "true";
+                    }
+                    else{
+                        contains = active_class.days[p].some(element=>{
+                        return check_class.days[q].includes(element);//DEAL WITH ARRANGED
                         })//Check if they have common days
-                        if(contains == true){
+                    }
+                        if(contains == true||arranged_exist == true){
                             let active_class_start_time = active_class.starttime[p];
                             let active_class_end_time = active_class.endtime[p];
                             let check_class_start_time = check_class.starttime[q];
@@ -139,6 +167,8 @@ function nextTable(){
     if(iteration_num_in_valid_combo < compared_arr_of_valid_combo.length - 1){
         iteration_num_in_valid_combo++;
         displayController();
+    }else{
+        document.getElementById("test--js").innerHTML = "We can't find any valid combination of those classes :(";
     }
 }
 function prevTable(){
@@ -149,7 +179,8 @@ function prevTable(){
     }
 }
 function displayController(){
-    document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo.length;
+    //document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo.length;
+    document.getElementById("count_table_number").innerHTML = iteration_num_in_valid_combo;
     var table = document.getElementById(tableid);
     var  rowCount = table.rows.length;
     for (var i = 1; i < rowCount; i++) {
@@ -163,7 +194,7 @@ function displayController(){
     }
 }
 function createRows(row_num){
-    //document.getElementById("test--js").innerHTML = iteration_num_in_valid_combo;
+    
     var table = document.getElementById(tableid);
     var  rowCount = table.rows.length;
     var row = table.insertRow(rowCount);

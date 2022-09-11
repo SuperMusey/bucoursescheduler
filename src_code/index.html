@@ -48,7 +48,7 @@
             </select><br>
          </li>
         <li class="course_inputs--fill">
-            <label for="dept">Dept:</label><br>
+            <label for="dept">Dept:(In uppercase)</label><br>
             <input type="text" id="dept" name="dept"><br>
         </li>
         <li class="course_inputs--fill">
@@ -60,11 +60,11 @@
         </li>
     </ul>
     <div class="class_disp">
-        <span class="select_course" name="spanclasses">COURSE</span>
-        <span class="select_course" name="spanclasses">COURSE</span>
-        <span class="select_course" name="spanclasses">COURSE</span>
-        <span class="select_course" name="spanclasses">COURSE</span>
-        <span class="select_course" name="spanclasses">COURSE</span>
+        <span class="select_course" name="spanclasses">COURSE#1</span>
+        <span class="select_course" name="spanclasses">COURSE#2</span>
+        <span class="select_course" name="spanclasses">COURSE#3</span>
+        <span class="select_course" name="spanclasses">COURSE#4</span>
+        <span class="select_course" name="spanclasses">COURSE#5</span>
     </div>
     <div class="course_sub">
         <button id="subbutton--course">Submit Courses</button>
@@ -72,7 +72,7 @@
     <div class="disp_ta">
         <span>Average Rating: </span>
         <span id="avg_rating">rating</span>
-        <table id="datatable" class="display_table" style="white-space:pre-wrap; word-wrap:break-word">
+        <table id="datatable" class="display_table">
             <tr>
                 <th class="heading">Course</th>
                 <th class="heading">Professor</th>
@@ -86,8 +86,14 @@
             <button id="prev_table">PREV</button>
             <button id="next_table">NEXT</button>
         </div> 
+        <div class="table_count">
+            <span id="count_table_number">0</span>
+        </div>
     </div>
-    <span id="test--js">test</span>
+    <span id="test--js"></span>
+    <div class="info">
+        <a href="https://docs.google.com/forms/d/1i1XhI4GAQ4gS1Apk3Vidwti8BGGuvgwNJBEsn6iz41c/edit?usp=sharing" target = "_blank">PLEASE READ BEFORE USE</a>
+    </div>
 
     <script src="./bigdata.js"></script>
     <script src="./app.js"></script>
