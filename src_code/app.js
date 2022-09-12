@@ -48,9 +48,11 @@ function loadClass(){
     }
     //selected_courses = ["ENGEC327","CASMA225","ENGEC311","ENGEC411","CASPS251"];
     //t-document.getElementById("test--js").innerHTML = (dataMap.get("CASPY212"))[0].days[0];
-    gatherData();
-    compared_arr_of_valid_combo = arr_of_valid_combo.sort((a,b)=>b[b.length-1]-a[a.length-1]);
-    nextTable()
+    var hasClass_V = gatherData();
+    if(hasClass_V){
+        compared_arr_of_valid_combo = arr_of_valid_combo.sort((a,b)=>b[b.length-1]-a[a.length-1]);
+        nextTable()
+    }
     //document.getElementById("test--js").innerHTML = compared_arr_of_valid_combo[0][compared_arr_of_valid_combo[0].length - 1];
     //displayData();
 }
@@ -64,8 +66,8 @@ function gatherData(){
     //t-document.getElementById("test--js").innerHTML = selected_courses[1];works
     for(let i=0;i<selected_courses.length;i++){
         if(!dataMap.has(selected_courses[i])){
-            document.getElementById("test--js").innerHTML = "A certain course does not exist in our data!";
             hasClass = false;
+            break;
         }
         else
             courseMap.set(selected_courses[i],dataMap.get(selected_courses[i]));
@@ -74,6 +76,9 @@ function gatherData(){
     //t-we get the proper courseMap
     if(hasClass)
         getCombination(courseMap,0,...the_combo)  
+    else
+        document.getElementById("test--js").innerHTML = "A certain course does not exist in our data!";
+    return hasClass;
 }
 
 //Get all viable combinations
